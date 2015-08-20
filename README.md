@@ -1,2 +1,2 @@
 # DragonFly-Editor
-Customize and show stats of your items sets of League of Legends
+Customize and show stats of your League of Legends sets of items
