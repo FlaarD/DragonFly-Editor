@@ -3,6 +3,7 @@
 require_once PATH.'/application/View.php';
 /**
  * Controller class
+ * Function format for index controller : [name]Action
  * Mother-Class ?
  */
 class Controller {
@@ -23,6 +24,10 @@ class Controller {
         $this->_view->assign('target',BASE_URL.'/verify');
     }
     
+	public function editorAction() {
+		$this->_view = new View('editor');
+	}
+	
     public function verifyAction() {
         if (isset($_POST['type']) && isset($_FILES['uploaded']['tmp_name'])) {
             session_start();

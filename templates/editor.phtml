@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DragonFly Editor website</title>
+</head>
+
+<body>
+<?php
+	#session_start();
+	#$_SESSION['set']; <- itemSets des mecs qui ont uploadés
+	
+	#Ici commence la récupération
+    $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/fr_FR/item.json');
+	$DecodedList = json_decode($FR_item_list, true);
+	var_dump($DecodedList['data']['1062']);
+	$count = 0;
+	foreach ($DecodedList['data'] as $key => $value){
+		#$key contient les id
+		#$value contient le tableau assoc de chaque item
+		$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$key.'.png" alt="texte alternatif" />';
+		$name = $value['name'];
+		#l'affichage pour la brêche de cristal uniquement
+		if (isset($value['maps'])){
+			if (isset($value['maps']['10']) && !$value['maps']['10']){
+						echo $image;
+						echo $name;
+						echo '     '.$key;
+						echo '</br>';
+			}
+		}
+		
+		
+		/* if ($count >= 4){
+		echo '</br>';
+		$count = 0;
+		}
+		else {
+			$count++;
+			echo '        ';
+		} */
+	}
+	
+	
+?>
+</body>
+
+</html>
