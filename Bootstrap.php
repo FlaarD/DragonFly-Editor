@@ -22,7 +22,7 @@ class Bootstrap {
         try {
             if (!empty($address)) {
                 //Parse the array to extract the required informations
-                $_controller = $address[0];
+                $_controller = ($address[0] !== '' ? $address[0] : 'index');
                 $_action = (isset($address[1]) ? $address[1].'Action' : 'indexAction');
                 $nb = count($address) - 2;
                 for($i=1;$i<=$nb/2;$i++){
