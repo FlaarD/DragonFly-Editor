@@ -10,20 +10,44 @@ class UploadController extends Controller {
     }
     
     public function verifyAction() {
-        if (isset($_POST['type']) && isset($_FILES['uploaded']['tmp_name'])) {
+        if (isset($_FILES['uploaded']['tmp_name'])) {
             session_start();
             $json = file_get_contents($_FILES['uploaded']['tmp_name']);
-            if ($_POST['type'] === 'properties') {
-                $json = explode('"itemSets":',$json);
-                $json = explode('KEY_BINDINGS',$json[1]);
-                $json = substr('{"itemSets":'.$json[0],0,strlen('{"itemSets":'.$json[0])-14);
+            $properties = strpos($json, '"itemSets":');
+            if ($properties !== false) {
+                $json = '{'.substr($json, $properties);
             }
-            $values = json_decode($json, true);
+            $values = $this->_jsonReader($json);
+            $values = (isset($values['itemSets']) ? $values : array('itemSets' => array($values)));
             $_SESSION['set'] = $values;
             header('Location: '.BASE_URL.'index');
             exit();
         }
         header('Location: '.BASE_URL.'index');
         exit();
+    }
+    
+    private function _jsonReader($json) {
+        if ($json[0] !== '{') {
+            return null;
+        }
+        $res = array();
+        $open = 0;
+        $close = 0;
+        $i = 0;
+        $l = strlen($json);
+        do{
+            $c = $json[$i];
+            switch ($c) {
+                case '{' :
+                    $open++;
+                    break;
+                case '}' :
+                    $close++;
+                    break;
+            }
+            $i++;
+        } while ($i<$l && $open !== $close);
+        return json_decode(substr($json,0,$i), true);
     }
 }
