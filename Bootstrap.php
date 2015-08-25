@@ -22,23 +22,19 @@ class Bootstrap {
         try {
             if (!empty($address)) {
                 //Parse the array to extract the required informations
-                $_controller = ($address[0] !== '' ? $address[0] : 'index');
+                $_controller = (($address[0] !== '' && $address[0] !== 'index.php') ? ucfirst($address[0]).'Controller' : 'IndexController');
                 $_action = (isset($address[1]) ? $address[1].'Action' : 'indexAction');
                 $nb = count($address) - 2;
                 for($i=1;$i<=$nb/2;$i++){
                     $_params[$address[$i*2]] = $address[$i*2+1];
                 }
                 //Include the required controller
-                ($_controller === 'index') ? include_once(PATH.'/application/Controller.php') : include_once(PATH.'/application/'.$_controller.'php');
+                include_once(PATH.'/application/'.$_controller.'.php');
                 //Create the controller if available
-                if ($_controller === 'index') {
-                    $cont = new Controller();
+                if (class_exists($_controller)) {
+                    $cont = new $_controller();
                 } else {
-                    if (class_exists($_controller)) {
-                        $cont = new $_controller();
-                    } else {
-                        throw new Exception('Controller doesn\'t exists');
-                    }
+                    throw new Exception('Controller doesn\'t exists');
                 }
                 //Launch the action if abale to
                 if (isset($_action)) { 
