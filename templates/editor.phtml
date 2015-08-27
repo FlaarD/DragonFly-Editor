@@ -13,7 +13,13 @@
 	#$_SESSION['set']; <- itemSets des mecs qui ont uploadés
 	
 	#Ici commence la récupération
-    $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/fr_FR/item.json');
+	define ("Original_Summoner_s_Rift", 1);
+	define ("Twisted_Treeline", 10);
+	define ("Summoner_s_Rift", 11);
+	define ("Howling_Abyss", 12);
+	
+	
+    $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
 	function display_Icon($ID){
@@ -25,27 +31,38 @@
 		#If sur le nombre d'argument évidemment !
 		#$MyLocalDecodedList = func_get_arg(0);
 		#$criterias = func_get_args();
-		
 		$TrueItemData = $ItemsList['data'];
+		$IsDisplayed = true;
+
+
+		
 		foreach($TrueItemData as $currentItem => $value){
-			if(isset($Maps[0]) && !isset($Tags[0]){
-				foreach($Maps as $map){
-					if (isset ($value['maps'][$map])){
-						echo 'objet indisponible';
+			if(!empty($Maps) && empty($Tags)){
+				foreach($Maps as $map){				
+					if (isset ($value['maps'][$map]) && !$value['maps'][$map]){
+						echo 'test';
+						die;
+						$IsDisplayed = false;
 					}
 					else{
-						display_Icon($currentItem);
+						$IsDisplayed = true;
 						}
-					echo '<br/>';
 				}					
 			}
-			else if (!isset($Maps[0]) && isset($Tags[0])){
-				foreach($Tags as $tag){
-				}
+			else if (empty($Maps) && !empty($Tags)){
+
+				/* foreach($Tags as $tag){
+					if (isset ($value['tags'])){
+						foreach ($value['tags'])
+					}
+				} */
 			}
-			
-			else {
+			else{
+				echo 'troisième cas';
+			}
+			if ($IsDisplayed) {
 				display_Icon($currentItem);
+				var_dump($value);
 			}
 		}
 		/*
@@ -56,9 +73,11 @@
 		$name = $value['name'];*/
 		
 	}
-	#T'as laissé en plan ici, tu essaie de faire en sorte qu'un tableau puisse passer en argument de ta fonction et que seuls les items avec les maps sélectionnées dans le tableau, soient pris en compte
-	//$maps = array('10' => false, '12' => false);
-	display_all_selected($DecodedList);
+	$maps = array(Summoner_s_Rift => false, Twisted_Treeline => false);
+	$tags = array('Damage');
+	
+	
+	display_all_selected($DecodedList, $maps);
 
 	
 ?>
