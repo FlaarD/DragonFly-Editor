@@ -1,0 +1,12 @@
+h1 {
+    text-align: center;
+}
+
+.formulaire_upload {
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.submit_button, .uploaded {
+    margin-top: 10px;
+}

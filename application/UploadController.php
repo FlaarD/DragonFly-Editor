@@ -10,15 +10,26 @@ class UploadController extends Controller {
     }
     
     public function verifyAction() {
-        if (isset($_FILES['uploaded']['tmp_name'])) {
+        if (isset($_FILES['uploaded1']['tmp_name'])) {
             session_start();
-            $json = file_get_contents($_FILES['uploaded']['tmp_name']);
-            $properties = strpos($json, '"itemSets":');
-            if ($properties !== false) {
-                $json = '{'.substr($json, $properties);
+            $values = array('itemSets' => array());
+            foreach ($_FILES as $file) {
+                if ($file['tmp_name'] !== '') {
+                    $json = file_get_contents($file['tmp_name']);
+                    $properties = strpos($json, '"itemSets":');
+                    if ($properties !== false) {
+                        $json = '{'.substr($json, $properties);
+                    }
+                    $val = $this->_jsonReader($json);
+                    if (isset($val['itemSets'])) {
+                        foreach ($val as $set) {
+                            $values['itemSets'][] = $set;
+                        }
+                    } else {
+                        $values['itemSets'][] = $val;
+                    }
+                }
             }
-            $values = $this->_jsonReader($json);
-            $values = (isset($values['itemSets']) ? $values : array('itemSets' => array($values)));
             $_SESSION['set'] = $values;
             header('Location: '.BASE_URL.'index');
             exit();
