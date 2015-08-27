@@ -8,13 +8,12 @@ require_once PATH.'/application/Controller.php';
  */
 class IndexController extends Controller {
     
-    public function indexAction() {
-        $this->_view = new View('index');
+    public function blankAction() {
+        $this->_view = new View('blank');
     }
     
-    public function testAction() {
+    public function indexAction() {
         $this->_view = new View('index');
-        $this->_view->assign('person', 'Fly');
     }
     
 	public function editorAction() {
