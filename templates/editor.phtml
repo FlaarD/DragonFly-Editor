@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>DragonFly Editor website</title>
+		<title>DragonFly Editor</title>
+        <meta name="description" content="DragonFly Editor, the editor page !"/>
+        <link rel="stylesheet" type="text/css" href="/css/editor.css"/>
 </head>
 
 <body>
+<h1>DragonFly Editor - Editor</h1>
 <?php
 	#session_start();
 	#$_SESSION['set']; <- itemSets des mecs qui ont uploadés
@@ -13,31 +16,37 @@
     $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/fr_FR/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
-	function display_all_selected(){
-		 #If sur le nombre d'argument évidemment !
-		$MyLocalDecodedList = func_get_arg(0);
-		$TrueItemData = $MyLocalDecodedList['data'];
-
-		$criterias = func_get_args();
+	function display_Icon($ID){
+		$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
+		echo $image;
+	}
+	
+	function display_all_selected($ItemsList, $Maps = array(), $Tags = array()){
+		#If sur le nombre d'argument évidemment !
+		#$MyLocalDecodedList = func_get_arg(0);
+		#$criterias = func_get_args();
 		
-		
-		
-		unset($criterias[0]);
-		foreach($criterias as $key){
-			foreach($TrueItemData as $currentItem => $value){
-			if (isset ($value['maps'][$key])){
-				echo 'L\'objet suivant n\'est pas sur la carte 10 : '.$value['name'];
-				var_dump($test);
-				var_dump($value['maps']);
-				die;
+		$TrueItemData = $ItemsList['data'];
+		foreach($TrueItemData as $currentItem => $value){
+			if(isset($Maps[0]) && !isset($Tags[0]){
+				foreach($Maps as $map){
+					if (isset ($value['maps'][$map])){
+						echo 'objet indisponible';
+					}
+					else{
+						display_Icon($currentItem);
+						}
+					echo '<br/>';
+				}					
 			}
-			else{
-				$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$currentItem.'.png" alt="texte alternatif" />';
-				echo $image;
+			else if (!isset($Maps[0]) && isset($Tags[0])){
+				foreach($Tags as $tag){
 				}
-				echo '<br/>';
 			}
 			
+			else {
+				display_Icon($currentItem);
+			}
 		}
 		/*
 		#$key contient les id
@@ -48,8 +57,8 @@
 		
 	}
 	#T'as laissé en plan ici, tu essaie de faire en sorte qu'un tableau puisse passer en argument de ta fonction et que seuls les items avec les maps sélectionnées dans le tableau, soient pris en compte
-	$maps = array('10' => false, '12' => false);
-	display_all_selected($DecodedList, 10);
+	//$maps = array('10' => false, '12' => false);
+	display_all_selected($DecodedList);
 
 	
 ?>
