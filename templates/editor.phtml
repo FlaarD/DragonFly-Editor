@@ -12,34 +12,45 @@
 	#Ici commence la récupération
     $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/fr_FR/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
-	var_dump($DecodedList['data']['1062']);
-	$count = 0;
-	foreach ($DecodedList['data'] as $key => $value){
+	
+	function display_all_selected(){
+		 #If sur le nombre d'argument évidemment !
+		$MyLocalDecodedList = func_get_arg(0);
+		$TrueItemData = $MyLocalDecodedList['data'];
+
+		$criterias = func_get_args();
+		
+		
+		
+		unset($criterias[0]);
+		foreach($criterias as $key){
+			foreach($TrueItemData as $currentItem => $value){
+			if (isset ($value['maps'][$key])){
+				echo 'L\'objet suivant n\'est pas sur la carte 10 : '.$value['name'];
+				var_dump($test);
+				var_dump($value['maps']);
+				die;
+			}
+			else{
+				$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$currentItem.'.png" alt="texte alternatif" />';
+				echo $image;
+				}
+				echo '<br/>';
+			}
+			
+		}
+		/*
 		#$key contient les id
 		#$value contient le tableau assoc de chaque item
+		$key=
 		$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$key.'.png" alt="texte alternatif" />';
-		$name = $value['name'];
-		#l'affichage pour la brêche de cristal uniquement
-		if (isset($value['maps'])){
-			if (isset($value['maps']['10']) && !$value['maps']['10']){
-						echo $image;
-						echo $name;
-						echo '     '.$key;
-						echo '</br>';
-			}
-		}
+		$name = $value['name'];*/
 		
-		
-		/* if ($count >= 4){
-		echo '</br>';
-		$count = 0;
-		}
-		else {
-			$count++;
-			echo '        ';
-		} */
 	}
-	
+	#T'as laissé en plan ici, tu essaie de faire en sorte qu'un tableau puisse passer en argument de ta fonction et que seuls les items avec les maps sélectionnées dans le tableau, soient pris en compte
+	$maps = array('10' => false, '12' => false);
+	display_all_selected($DecodedList, 10);
+
 	
 ?>
 </body>
