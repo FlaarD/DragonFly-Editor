@@ -5,8 +5,11 @@ require_once PATH.'/application/Controller.php';
 class UploadController extends Controller {
     
     public function indexAction() {
-        $this->_view = new View('upload');
         $this->_view->assign('target',BASE_URL.'upload/verify');
+        $this->_view->setTitle('DragonFly Editor - Upload');
+        $this->_view->setDescription('Upload system for the DragonFly Editor');
+        $this->_view->addCss('/css/upload.css');
+        $this->_view->addJs('/js/upload.js');
     }
     
     public function verifyAction() {
