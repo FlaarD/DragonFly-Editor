@@ -22,12 +22,20 @@
 		#If sur le nombre d'argument évidemment !
 		#$MyLocalDecodedList = func_get_arg(0);
 		#$criterias = func_get_args();
+		//$currentItem = ID de l'item
+		//$value = tableau des données de l'item. Les données sont soit des tableaux soit des tableaux associatifs. 
+		//$value['donnée'][index ou clef]
+		
 		$TrueItemData = $ItemsList['data'];
 		$IsDisplayed = true;
-
+		foreach($TrueItemData as $currentItem => $value){
+			var_dump($value['maps']);
+			if (isset($value['maps'])){
+				
+			}
 
 		
-		foreach($TrueItemData as $currentItem => $value){
+		
 			if(!empty($Maps) && empty($Tags)){
 				foreach($Maps as $map){				
 					if (isset ($value['maps'][$map]) && !$value['maps'][$map]){
