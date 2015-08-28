@@ -1,3 +1,36 @@
 h1 {
     text-align: center;
 }
+
+.item_description {
+	position : fixed;
+	height : 200;
+	width : 500;
+	top : 175;
+	left : 400;
+	overflow-y : scroll;
+}
+
+.image_margin{
+	margin : 2px 1px;
+	border : 2px hidden #FF00FF;
+}
+
+.image_margin_selected{
+	margin : 2px 1px;
+	border : 2px groove #FF00FF;
+	}
+
+.hidden{
+	visibility : hidden;
+}
+
+.items_zone{
+	position : fixed;
+	height : 600;
+	width : 225;
+	top : 175;
+	left : 100;
+	background-color : grey;
+	overflow-y : scroll;
+}

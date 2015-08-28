@@ -14,8 +14,14 @@
 	$DecodedList = json_decode($FR_item_list, true);
 	
 	function display_Icon($ID){
-		$image = '<img src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
+		$image = '<img class="image_margin_selected" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
 		echo $image;
+	}
+	
+	function prepare_descriptions($item){
+		//Ajouter l'ID dans les class pour les personaliser dans le CSS pour l'affichage
+		$display = '<div class="hidden item_description">'.$item['name'].'<br/>'.$item['description'].'<br/></div>';
+		echo $display;
 	}
 	
 	function display_all_selected($ItemsList, $Maps = array(), $Tags = array()){
@@ -27,41 +33,28 @@
 		//$value['donnée'][index ou clef]
 		
 		$TrueItemData = $ItemsList['data'];
-		$IsDisplayed = true;
+		echo '<div class="items_zone">';
 		foreach($TrueItemData as $currentItem => $value){
-			var_dump($value['maps']);
-			if (isset($value['maps'])){
-				
-			}
-
-		
-		
-			if(!empty($Maps) && empty($Tags)){
-				foreach($Maps as $map){				
-					if (isset ($value['maps'][$map]) && !$value['maps'][$map]){
-						echo 'test';
-						die;
-						$IsDisplayed = false;
-					}
-					else{
-						$IsDisplayed = true;
+			$IsDisplayed = true;
+			prepare_descriptions($value);
+			$DescriptionArray[] = $value['description'];
+			if (!$value['gold']['purchasable']){
+				$IsDisplayed = false;
+			}	
+			else{	
+				if (isset($value['maps'])){ //first test if the object has a map field. If not it is displayed because it means it is on all the maps.
+					if (!empty($Maps)){
+						foreach($Maps as $NotPlayedMap){
+							if(isset($value['maps'][$NotPlayedMap]) && !$value['maps'][$NotPlayedMap]){
+								//echo "je passe et j'ignore : ".$value['name'].'<br/>';
+								$IsDisplayed = false;
+							}
 						}
-				}					
-			}
-			else if (empty($Maps) && !empty($Tags)){
-
-				/* foreach($Tags as $tag){
-					if (isset ($value['tags'])){
-						foreach ($value['tags'])
-					}
-				} */
-			}
-			else{
-				echo 'troisième cas';
-			}
-			if ($IsDisplayed) {
-				display_Icon($currentItem);
-				var_dump($value);
+					}	
+				}
+				if ($IsDisplayed) {
+					display_Icon($currentItem);
+				}
 			}
 		}
 		/*
@@ -72,7 +65,7 @@
 		$name = $value['name'];*/
 		
 	}
-	$maps = array(Summoner_s_Rift => false, Twisted_Treeline => false);
+	$maps = array(Summoner_s_Rift, Original_Summoner_s_Rift);
 	$tags = array('Damage');
 	
 	
