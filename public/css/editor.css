@@ -25,6 +25,10 @@ h1 {
 	visibility : hidden;
 }
 
+.visible{
+	visibility : visible;
+}
+
 .items_zone{
 	position : fixed;
 	height : 600;

@@ -13,14 +13,22 @@
     $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
-	function display_Icon($ID){
-		$image = '<img class="image_margin_selected" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
+	function display_Icon($ID, $classes=array("image_margin")){
+		$display_classes = '';
+		foreach ($classes as $class){
+			$display_classes = $display_classes.' '.$class;
+		}
+		$image = '<img class="'.$display_classes.'" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
 		echo $image;
 	}
 	
 	function prepare_descriptions($item){
 		//Ajouter l'ID dans les class pour les personaliser dans le CSS pour l'affichage
-		$display = '<div class="hidden item_description">'.$item['name'].'<br/>'.$item['description'].'<br/></div>';
+		$image = 'Leads to :<br/>';
+		foreach ($item['into'] as $evolution){
+			$image = $image.'<img class="hidden image_margin" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
+		}
+		$display = '<div class="hidden item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$image.'<br/></div>';
 		echo $display;
 	}
 	
@@ -38,6 +46,7 @@
 			$IsDisplayed = true;
 			prepare_descriptions($value);
 			$DescriptionArray[] = $value['description'];
+			//We do not need non-purchasable items for now.
 			if (!$value['gold']['purchasable']){
 				$IsDisplayed = false;
 			}	
@@ -52,6 +61,23 @@
 						}
 					}	
 				}
+
+				if (!empty($Tags)){
+					$TagChoice = false;
+					foreach($Tags as $chosenTag){
+						if(!empty($value['tags']) && !$TagChoice){
+							foreach($value['tags'] as $itemTag){
+								if ($itemTag == $chosenTag){
+									$TagChoice = true;
+								}
+							}
+						}
+					}
+					if (!$TagChoice){
+						$IsDisplayed = false;
+					}
+				}
+				
 				if ($IsDisplayed) {
 					display_Icon($currentItem);
 				}
@@ -66,10 +92,10 @@
 		
 	}
 	$maps = array(Summoner_s_Rift, Original_Summoner_s_Rift);
-	$tags = array('Damage');
+	$tags = array('AttackSpeed');
 	
 	
-	display_all_selected($DecodedList, $maps);
+	display_all_selected($DecodedList, $maps, $tags);
 
 	
 ?>
