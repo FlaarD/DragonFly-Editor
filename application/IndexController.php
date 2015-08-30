@@ -23,6 +23,7 @@ class IndexController extends Controller {
         $this->_view->setTitle('DragonFly Editor');
         $this->_view->setDescription('DragonFly Editor, the editor page !');
         $this->_view->addCss('/css/editor.css');
+		$this->_view->addJs('/js/editor.js');
 	}
     
     public function selectorAction() {

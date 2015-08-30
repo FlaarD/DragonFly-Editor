@@ -1,4 +1,5 @@
 <h1>DragonFly Editor - Editor</h1>
+<body onload="page_loaded()">
 <?php
 	#session_start();
 	#$_SESSION['set']; <- itemSets des mecs qui ont uploadés
@@ -18,33 +19,33 @@
 		foreach ($classes as $class){
 			$display_classes = $display_classes.' '.$class;
 		}
-		$image = '<img class="'.$display_classes.'" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
+		$image = '<img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" />';
 		echo $image;
 	}
 	
-	function prepare_descriptions($item){
+	function prepare_descriptions($item, $id){
 		//Ajouter l'ID dans les class pour les personaliser dans le CSS pour l'affichage
-		$image = 'Leads to :<br/>';
+		if (!empty($item['into']))
+			$image = 'Leads to :<br/>';
+		else
+			$image = '';
 		foreach ($item['into'] as $evolution){
-			$image = $image.'<img class="hidden image_margin" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
+			$image = $image.'<img class="image_margin" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
 		}
-		$display = '<div class="hidden item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$image.'<br/></div>';
+		$display = '<p id="'.$id.'" class="item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$image.'<br/></p>';
 		echo $display;
 	}
 	
 	function display_all_selected($ItemsList, $Maps = array(), $Tags = array()){
-		#If sur le nombre d'argument évidemment !
-		#$MyLocalDecodedList = func_get_arg(0);
-		#$criterias = func_get_args();
-		//$currentItem = ID de l'item
-		//$value = tableau des données de l'item. Les données sont soit des tableaux soit des tableaux associatifs. 
-		//$value['donnée'][index ou clef]
+		//$currentItem = ID of the item
+		//$value = data tab of the item. Data are also tabs or key/value tabs. 
+		//$value['data'][index/key]
 		
 		$TrueItemData = $ItemsList['data'];
 		echo '<div class="items_zone">';
 		foreach($TrueItemData as $currentItem => $value){
 			$IsDisplayed = true;
-			prepare_descriptions($value);
+			prepare_descriptions($value, $currentItem);
 			$DescriptionArray[] = $value['description'];
 			//We do not need non-purchasable items for now.
 			if (!$value['gold']['purchasable']){
@@ -99,3 +100,4 @@
 
 	
 ?>
+</body>
