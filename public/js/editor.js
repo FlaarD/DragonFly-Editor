@@ -11,7 +11,7 @@ function show_description(id){
 }
 
 function page_loaded(){
-	$("p").hide();
+	
 }
 
 $(document).ready(function() {

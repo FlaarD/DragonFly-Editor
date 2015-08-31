@@ -8,12 +8,11 @@ h1 {
 	width : 500;
 	top : 175;
 	left : 400;
-	overflow-y : scroll;
+	display : none;
 }
 
 .image_margin{
 	margin : 2px 1px;
-	border : 2px hidden #FF00FF;
 }
 
 .image_margin_selected{
@@ -22,7 +21,7 @@ h1 {
 	}
 
 .hidden{
-	visibility : hidden;
+	display : none;
 }
 
 .visible{
