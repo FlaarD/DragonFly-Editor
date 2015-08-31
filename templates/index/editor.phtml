@@ -15,10 +15,10 @@
     $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
-	function display_Icon($ID, $classes=array("image_margin")){
+	function display_Icon($ID, $classes=array("image_item")){
 		$display_classes = '';
 		foreach ($classes as $class){
-			$display_classes = $display_classes.' '.$class;
+			$display_classes = $class.' '.$display_classes;
 		}
 		$image = '<span><img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" /></span>';
 		echo $image;
@@ -31,7 +31,7 @@
 		else
 			$image = '';
 		foreach ($item['into'] as $evolution){
-			$image = $image.'<img class="image_margin" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
+			$image = $image.'<img class="image_description" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
 		}
 		$display = '<div id="'.$id.'" class="item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$image.'<br/></div>';
 		echo $display;
@@ -46,7 +46,7 @@
 		echo '<div class="items_zone">';
 		foreach($TrueItemData as $currentItem => $value){
 			$IsDisplayed = true;
-			$classes = array();
+			$classes = array("image_margin");
 			prepare_descriptions($value, $currentItem);
 			$DescriptionArray[] = $value['description'];
 			//We do not need non-purchasable items for now.
@@ -57,13 +57,13 @@
 				if (isset($value['maps'])){ //first test if the object has a map field. If not it is displayed because it means it is on all the maps.
 					foreach ($value['maps'] as $itemMaps => $bool){
 						switch($itemMaps){
-							case 1 : $classes[] = 'OriginalSummonersRift';
+							case Original_Summoner_s_Rift : $classes[] = 'OriginalSummonersRift';
 							break;
-							case 10 : $classes[] = 'TwistedTreeline';
+							case Twisted_Treeline : $classes[] = 'TwistedTreeline';
 							break;
-							case 11 : $classes[] ='SummonersRift';
+							case Summoner_s_Rift : $classes[] ='SummonersRift';
 							break;
-							case 12 : $classes[] = 'HowlingAbyss';
+							case Howling_Abyss : $classes[] = 'HowlingAbyss';
 							break;
 						}
 					}
@@ -76,26 +76,12 @@
 						}
 					}	
 				}
-				if (!empty($Tags)){
-					$TagChoice = false;
-					foreach($Tags as $chosenTag){
-						if(!empty($value['tags']) && !$TagChoice){
-							foreach($value['tags'] as $itemTag){
-								$classes[] = $itemTag;
-								if ($itemTag == $chosenTag){
-									$TagChoice = true;
-								}
-							}
-						}
-					}
-					var_dump($classes);
-					if (!$TagChoice){
-						$IsDisplayed = false;
+				if(!empty($value['tags'])){
+					foreach($value['tags'] as $itemTag){
+						$classes[] = $itemTag;
 					}
 				}
-				if ($IsDisplayed) {
-					display_Icon($currentItem);
-				}
+				display_Icon($currentItem, $classes);
 			}
 		}
 		/*
@@ -114,4 +100,7 @@
 
 	
 ?>
+<button class="SummonerRiftSelector" onclick="show_map(1)">Summoner's Rift</button>
+<button class="TwistedTreelineSelector" onclick="show_map(2)">Twisted Treeline</button>
+<button class="HowlingAbyssSelector" onclick="show_map(3)">Aram</button>
 </body>

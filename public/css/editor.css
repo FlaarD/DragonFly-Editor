@@ -2,21 +2,54 @@ h1 {
     text-align: center;
 }
 
+.SummonerRiftSelector{
+	position : fixed;
+	height : 30;
+	width : 100;
+	top : 100;
+	left : 100;
+	background-color : #F0F000;
+	border : 5px groove #5500FF;
+}
+
+.HowlingAbyssSelector{
+	position : fixed;
+	height : 30;
+	width : 100;
+	top : 150;
+	left : 100;
+	background-color : #000034;
+	border : 5px groove #5500FF;
+}
+
+.TwistedTreelineSelector{
+	position : fixed;
+	height : 30;
+	width : 100;
+	top : 200;
+	left : 100;
+	background-color : #55555;
+	border : 5px groove #5500FF;
+}
+
 .item_description {
 	position : fixed;
 	height : 500;
 	width : 500;
-	top : 175;
+	top : 250;
 	left : 400;
 	display : none;
 }
 
-.image_margin{
+.image_description{
 	margin : 2px 1px;
 }
 
-.image_margin_selected{
+.image_item{
 	margin : 2px 1px;
+}
+
+.selected{
 	border : 2px groove #FF00FF;
 	}
 
@@ -32,7 +65,7 @@ h1 {
 	position : fixed;
 	height : 600;
 	width : 225;
-	top : 175;
+	top : 250;
 	left : 100;
 	background-color : grey;
 	overflow-y : scroll;
