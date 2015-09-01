@@ -1,0 +1,19 @@
+<h1>
+    DragonFly Editor - Selector
+</h1>
+<?php
+    if (isset($error)) {
+        echo "<div class='error'>".($error === 'noParam' ? 'There wasn\'t any value sent by the form' : 'An error occured')."</div>";
+    }
+?>
+<form action='/index/selectorValid' method='post'>
+    <select name='setName'>
+        <?php
+            foreach ($itemSets as $is) {
+                echo '<option value="'.$is['title'].'">'.$is['title']."</option>\n";
+            }
+        ?>
+        <option value="newItemSet">New</option>
+    </select>
+    <input type='submit' value='choose'/>
+</form>

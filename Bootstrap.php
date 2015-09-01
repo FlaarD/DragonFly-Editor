@@ -32,7 +32,7 @@ class Bootstrap {
                 include_once(PATH.'/application/'.$_controller.'.php');
                 //Create the controller if available
                 if (class_exists($_controller)) {
-                    $cont = new $_controller((isset($address[1]) ? $address[1] : 'index'), (($address[0] !== '' && $address[0] !== 'index.php') ? $address[0] : 'index'));
+                    $cont = new $_controller((isset($address[1]) ? $address[1] : 'index'), (($address[0] !== '' && $address[0] !== 'index.php') ? $address[0] : 'index'), $_params);
                 } else {
                     throw new Exception('Controller doesn\'t exists');
                 }

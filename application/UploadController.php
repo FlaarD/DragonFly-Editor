@@ -14,7 +14,6 @@ class UploadController extends Controller {
     
     public function verifyAction() {
         if (isset($_FILES['uploaded1']['tmp_name'])) {
-            session_start();
             $values = array('itemSets' => array());
             foreach ($_FILES as $file) {
                 if ($file['tmp_name'] !== '') {
@@ -26,7 +25,7 @@ class UploadController extends Controller {
                     $val = $this->_jsonReader($json);
                     if (isset($val['itemSets'])) {
                         foreach ($val as $set) {
-                            $values['itemSets'][] = $set;
+                            $values['itemSets'][] = $set[0];
                         }
                     } else {
                         $values['itemSets'][] = $val;
@@ -34,6 +33,7 @@ class UploadController extends Controller {
                 }
             }
             $_SESSION['set'] = $values;
+            unset($_SESSION['choseSet']);
             header('Location: '.BASE_URL.'index');
             exit();
         }

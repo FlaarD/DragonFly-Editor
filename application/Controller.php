@@ -10,8 +10,12 @@ class Controller {
     
     protected $_view;
     
-    public function __construct($template, $controller) {
+    protected $_params;
+    
+    public function __construct($template, $controller, $params) {
+        session_start();
         $this->_view = new View($template, $controller);
+        $this->_params = $params;
     }
     
 }
