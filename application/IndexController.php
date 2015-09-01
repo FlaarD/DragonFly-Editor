@@ -28,6 +28,22 @@ class IndexController extends Controller {
     
     public function selectorAction() {
         $this->_view->setTitle('DragonFly Editor - Selector');
+        $this->_view->setDescription('DragonFly Editor, selector for the item sets');
+        if (isset($_SESSION['set']['itemSets'])) {
+            $this->_view->assign('itemSets', $_SESSION['set']['itemSets']);
+        }
+        if (isset($this->_params['error'])) {
+            $this->_view->assign('error', $this->_params['error']);
+        }
+    }
+    
+    public function selectorValidAction() {
+        if (isset($_POST['setName'])) {
+            $_SESSION['choseSet'] = $_POST['setName'];
+            header('Location: '.BASE_URL.'index');
+        } else {
+            header('Location: '.BASE_URL.'index/selector/error/noParam');
+        }
     }
 
 }
