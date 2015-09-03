@@ -3,31 +3,16 @@ h1 {
 }
 
 .SummonerRiftSelector{
-	position : fixed;
-	height : 30;
-	width : 100;
-	top : 100;
-	left : 100;
 	background-color : #F0F000;
 	border : 5px groove #5500FF;
 }
 
 .HowlingAbyssSelector{
-	position : fixed;
-	height : 30;
-	width : 100;
-	top : 150;
-	left : 100;
 	background-color : #000034;
 	border : 5px groove #5500FF;
 }
 
 .TwistedTreelineSelector{
-	position : fixed;
-	height : 30;
-	width : 100;
-	top : 200;
-	left : 100;
 	background-color : #55555;
 	border : 5px groove #5500FF;
 }
@@ -59,6 +44,14 @@ h1 {
 
 .visible{
 	visibility : visible;
+}
+
+.filters_zone{
+	position : fixed;
+	height : 30;
+	width : 100;
+	top : 200;
+	left : 100;
 }
 
 .items_zone{

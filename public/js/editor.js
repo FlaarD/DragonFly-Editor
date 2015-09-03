@@ -18,7 +18,7 @@ function page_loaded(){
 function show_map(chosen_class){
 	switch(chosen_class){
 		case 1 :
-			$(".image_item").hide();
+			$(".image_item").show();
 			$(".OriginalSummonersRift").hide();
 			$(".SummonersRift").hide();
 		break;

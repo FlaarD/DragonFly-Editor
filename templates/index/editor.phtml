@@ -1,6 +1,10 @@
 <h1>DragonFly Editor - Editor</h1>
 <body onload="page_loaded()">
-
+<div class = "filters_zone">
+<button class="SummonerRiftSelector" onclick="show_map(1)">Summoner's Rift</button><br/>
+<button class= "TwistedTreelineSelector" onclick="show_map(2)">Twisted Treeline</button><br>
+<button class= "HowlingAbyssSelector" onclick="show_map(3)">Aram</button>
+</div>
 <?php
 	#session_start();
 	#$_SESSION['set']; <- itemSets des mecs qui ont uploadés
@@ -46,7 +50,7 @@
 		echo '<div class="items_zone">';
 		foreach($TrueItemData as $currentItem => $value){
 			$IsDisplayed = true;
-			$classes = array("image_margin");
+			$classes = array("image_item");
 			prepare_descriptions($value, $currentItem);
 			$DescriptionArray[] = $value['description'];
 			//We do not need non-purchasable items for now.
@@ -100,7 +104,4 @@
 
 	
 ?>
-<button class="SummonerRiftSelector" onclick="show_map(1)">Summoner's Rift</button>
-<button class="TwistedTreelineSelector" onclick="show_map(2)">Twisted Treeline</button>
-<button class="HowlingAbyssSelector" onclick="show_map(3)">Aram</button>
 </body>
