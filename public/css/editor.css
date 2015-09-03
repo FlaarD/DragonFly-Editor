@@ -3,16 +3,19 @@ h1 {
 }
 
 .SummonerRiftSelector{
+	position : relative;
 	background-color : #F0F000;
 	border : 5px groove #5500FF;
 }
 
 .HowlingAbyssSelector{
+	position : relative;
 	background-color : #000034;
 	border : 5px groove #5500FF;
 }
 
 .TwistedTreelineSelector{
+	position : relative;
 	background-color : #55555;
 	border : 5px groove #5500FF;
 }
