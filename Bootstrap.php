@@ -25,6 +25,7 @@ class Bootstrap {
                 $_controller = (($address[0] !== '' && $address[0] !== 'index.php') ? ucfirst($address[0]).'Controller' : 'IndexController');
                 $_action = (isset($address[1]) ? $address[1].'Action' : 'indexAction');
                 $nb = count($address) - 2;
+				$_params = array();
                 for($i=1;$i<=$nb/2;$i++){
                     $_params[$address[$i*2]] = $address[$i*2+1];
                 }

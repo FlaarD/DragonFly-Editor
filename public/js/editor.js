@@ -1,5 +1,6 @@
-function light() {
-	//alert("Test");
+function select() {
+	$(".selected").removeClass("selected");
+	$(event.target).addClass("selected");
 }
 
 function hide_description(id) {

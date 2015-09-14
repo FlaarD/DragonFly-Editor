@@ -1,9 +1,9 @@
 <h1>DragonFly Editor - Editor</h1>
-<body onload="page_loaded()">
+<body onload="page_loaded()" class = "EditorWindow">
 <div class = "filters_zone">
 <button class="SummonerRiftSelector" onclick="show_map(1)">Summoner's Rift</button>
 <button class= "TwistedTreelineSelector" onclick="show_map(2)">Twisted Treeline</button>
-<button class= "HowlingAbyssSelector" onclick="show_map(3)">Aram</button>
+<button class= "HowlingAbyssSelector" onclick="show_map(3)">Howling Abyss</button>
 </div>
 <?php
 	#session_start();
@@ -16,19 +16,21 @@
 	define ("Howling_Abyss", 12);
 	
 	
-    $FR_item_list=file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
+    $FR_item_list = file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
 	function display_Icon($ID, $classes=array("image_item")){
+		//Pour l'affichage des items.
 		$display_classes = '';
 		foreach ($classes as $class){
 			$display_classes = $class.' '.$display_classes;
 		}
-		$image = '<span><img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" /></span>';
+		$image = '<span onclick="select()"><img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" /></span>';
 		echo $image;
 	}
 	
 	function prepare_descriptions($item, $id){
+		//Pour l'affichage des descriptions des items.
 		//Ajouter l'ID dans les class pour les personaliser dans le CSS pour l'affichage
 		if (!empty($item['into']))
 			$image = 'Leads to :<br/>';

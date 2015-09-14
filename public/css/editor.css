@@ -2,22 +2,32 @@ h1 {
     text-align: center;
 }
 
+.EditorWindow {
+	overflow-y : scroll;
+}
+
 .SummonerRiftSelector{
-	position : relative;
+	position : absolute;
+	left : 0;
+	width : 100;
 	background-color : #F0F000;
-	border : 5px groove #5500FF;
+	border : 5px groove #FFFFFF;
 }
 
 .HowlingAbyssSelector{
-	position : relative;
-	background-color : #000034;
-	border : 5px groove #5500FF;
+	position : absolute;
+	left : 105;
+	width : 100;
+	background-color : #1200A4;
+	border : 5px groove #FFFFFF;
 }
 
 .TwistedTreelineSelector{
-	position : relative;
+	position : absolute;
+	left : 210;
+	width : 100;
 	background-color : #55555;
-	border : 5px groove #5500FF;
+	border : 5px groove #FFFFFF;
 }
 
 .item_description {
@@ -38,6 +48,7 @@ h1 {
 }
 
 .selected{
+	margin : 0px 1px;
 	border : 2px groove #FF00FF;
 	}
 
@@ -53,15 +64,15 @@ h1 {
 	position : fixed;
 	height : 30;
 	width : 100;
-	top : 200;
+	top : 100;
 	left : 100;
 }
 
 .items_zone{
 	position : fixed;
-	height : 600;
-	width : 225;
-	top : 250;
+	height : 350;
+	width : 230;
+	top : 150;
 	left : 100;
 	background-color : grey;
 	overflow-y : scroll;
