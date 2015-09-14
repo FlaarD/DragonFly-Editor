@@ -34,7 +34,16 @@ h1 {
 	position : fixed;
 	height : 500;
 	width : 500;
-	top : 250;
+	top : 150;
+	left : 400;
+	display : none;
+}
+
+.selected_item_description{
+	position : fixed;
+	height : 500;
+	width : 500;
+	top : 650;
 	left : 400;
 	display : none;
 }

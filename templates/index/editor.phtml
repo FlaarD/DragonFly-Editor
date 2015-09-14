@@ -25,25 +25,27 @@
 		foreach ($classes as $class){
 			$display_classes = $class.' '.$display_classes;
 		}
-		$image = '<span onclick="select()"><img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" /></span>';
-		echo $image;
+		$block = '<span id ="'.$ID.'" onclick="select('.$ID.')"><img class="'.$display_classes.'" onmouseover="show_description('.$ID.')" onmouseout="hide_description('.$ID.')" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$ID.'.png" alt="texte alternatif" /></span>';
+		echo $block;
 	}
 	
 	function prepare_descriptions($item, $id){
 		//Pour l'affichage des descriptions des items.
 		//Ajouter l'ID dans les class pour les personaliser dans le CSS pour l'affichage
 		if (!empty($item['into']))
-			$image = 'Leads to :<br/>';
+			$block = 'Leads to :<br/>';
 		else
-			$image = '';
+			$block = '';
 		foreach ($item['into'] as $evolution){
-			$image = $image.'<img class="image_description" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
+			$block = $block.'<img class="image_description" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
 		}
-		$display = '<div id="'.$id.'" class="item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$image.'<br/></div>';
+		$display = '<div id="desc_'.$id.'" class="item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
+		$display_selected = '<div id="select_'.$id.'" class="selected_item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
 		echo $display;
+		echo $display_selected;
 	}
 	
-	function display_all_selected($ItemsList, $Maps = array(), $Tags = array()){
+	function display_items($ItemsList, $Maps = array(), $Tags = array()){
 		//$currentItem = ID of the item
 		//$value = data tab of the item. Data are also tabs or key/value tabs. 
 		//$value['data'][index/key]
@@ -102,7 +104,7 @@
 	$tags = array('AttackSpeed');
 	
 	
-	display_all_selected($DecodedList, $maps);
+	display_items($DecodedList, $maps);
 
 	
 ?>
