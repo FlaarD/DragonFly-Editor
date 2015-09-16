@@ -32,7 +32,7 @@ h1 {
 
 .item_description {
 	position : fixed;
-	height : 500;
+	height : 400;
 	width : 500;
 	top : 150;
 	left : 400;
@@ -43,7 +43,7 @@ h1 {
 	position : fixed;
 	height : 500;
 	width : 500;
-	top : 650;
+	top : 500;
 	left : 400;
 	display : none;
 }
@@ -70,7 +70,7 @@ h1 {
 }
 
 .filters_zone{
-	position : fixed;
+	position : absolute;
 	height : 30;
 	width : 100;
 	top : 100;
@@ -78,11 +78,21 @@ h1 {
 }
 
 .items_zone{
-	position : fixed;
-	height : 350;
+	position : absolute;
+	height : 650;
 	width : 230;
 	top : 150;
 	left : 100;
 	background-color : grey;
 	overflow-y : scroll;
+}
+
+.AllSets{
+	position : absolute;
+	top : 150;
+	left : 950;
+	height : 400;
+	width : 460;
+	background-color : black;
+	color : white;
 }

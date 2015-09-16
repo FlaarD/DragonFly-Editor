@@ -45,6 +45,11 @@
 		echo $display_selected;
 	}
 	
+	function display_sets(){
+		$display = '<div id="sets_zone" class="AllSets">Sets of Items</div>';
+		echo $display;
+	}
+	
 	function display_items($ItemsList, $Maps = array(), $Tags = array()){
 		//$currentItem = ID of the item
 		//$value = data tab of the item. Data are also tabs or key/value tabs. 
@@ -92,6 +97,7 @@
 				display_Icon($currentItem, $classes);
 			}
 		}
+		echo '</div>';
 		/*
 		#$key contient les id
 		#$value contient le tableau assoc de chaque item
@@ -105,7 +111,7 @@
 	
 	
 	display_items($DecodedList, $maps);
-
+	display_sets();
 	
 ?>
 </body>
