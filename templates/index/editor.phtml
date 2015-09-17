@@ -1,6 +1,6 @@
 <h1>DragonFly Editor - Editor</h1>
 <body onload="page_loaded()" class = "EditorWindow">
-<div class = "filters_zone">
+<div class = "filterZone">
 <button class="SummonerRiftSelector" onclick="show_map(1)">Summoner's Rift</button>
 <button class= "TwistedTreelineSelector" onclick="show_map(2)">Twisted Treeline</button>
 <button class= "HowlingAbyssSelector" onclick="show_map(3)">Howling Abyss</button>
@@ -19,7 +19,7 @@
     $FR_item_list = file_get_contents('http://ddragon.leagueoflegends.com/cdn/5.2.1/data/en_US/item.json');
 	$DecodedList = json_decode($FR_item_list, true);
 	
-	function display_Icon($ID, $classes=array("image_item")){
+	function display_Icon($ID, $classes=array("imageItem")){
 		//Pour l'affichage des items.
 		$display_classes = '';
 		foreach ($classes as $class){
@@ -37,16 +37,25 @@
 		else
 			$block = '';
 		foreach ($item['into'] as $evolution){
-			$block = $block.'<img class="image_description" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
+			$block = $block.'<img class="imageItemDescription" src="http://ddragon.leagueoflegends.com/cdn/5.2.1/img/item/'.$evolution.'.png" alt="texte alternatif" />';
 		}
-		$display = '<div id="desc_'.$id.'" class="item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
-		$display_selected = '<div id="select_'.$id.'" class="selected_item_description">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
+		$display = '<div id="desc_'.$id.'" class="itemDescriptionBlock">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
+		$display_selected = '<div id="select_'.$id.'" class="selectedItemDescription">'.$item['name'].'<br/>'.$item['description'].'<br/>'.$block.'<br/></div>';
 		echo $display;
 		echo $display_selected;
 	}
 	
+	function display_buttons(){
+		$button_add_block = '<button class=addBlockButton onclick=add_set_block()>+Block</button>';
+		$button_add = '<button class=addButton onclick=add_set_item()>Add</button>';
+		$button_del = '<button class=deleteButton onclick=delete_selected()>Rem</button>';
+		echo $button_add;
+		echo $button_add_block;
+		echo $button_del;
+	}
+	
 	function display_sets(){
-		$display = '<div id="sets_zone" class="AllSets">Sets of Items</div>';
+		$display = '<div id="sets_zone" class="allSets"></div>';
 		echo $display;
 	}
 	
@@ -56,10 +65,10 @@
 		//$value['data'][index/key]
 		
 		$TrueItemData = $ItemsList['data'];
-		echo '<div class="items_zone">';
+		echo '<div class="itemZone">';
 		foreach($TrueItemData as $currentItem => $value){
 			$IsDisplayed = true;
-			$classes = array("image_item");
+			$classes = array("imageItem");
 			prepare_descriptions($value, $currentItem);
 			$DescriptionArray[] = $value['description'];
 			//We do not need non-purchasable items for now.
@@ -112,6 +121,7 @@
 	
 	display_items($DecodedList, $maps);
 	display_sets();
+	display_buttons();
 	
 ?>
 </body>
